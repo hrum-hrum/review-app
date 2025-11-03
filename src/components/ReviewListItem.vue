@@ -2,56 +2,47 @@
 import {} from 'vue'
 
 defineProps({
-  review: {
-    type: Object,
+  author: {
+    type: String,
     required: true,
+  },
+  text: {
+    type: String,
+    required: true,
+  },
+  liked: {
+    type: Boolean,
+    default: false,
+  },
+  rating: {
+    type: Number,
+    default: 0,
   },
 })
 </script>
 <template>
-  <li class="review-tiles__item">
-    <div class="review">
-      <div class="review__header">
-        <p class="review__author">{{ review.author }}</p>
-        <div class="review__rating">
-          <span v-for="n in 5" :key="`star-${n}`" class="star">
-            {{ n <= review.rating ? '★' : '☆' }}
-          </span>
-        </div>
-      </div>
-      <p class="review__text">"{{ review.text }}"</p>
-      <div class="review__actions">
-        <!-- <button @click="toggleLike(review)" class="btn btn--like"> -->
-        <button @click="$emit('toggle-like')" class="btn btn--like">
-          {{ review.liked ? '❤️' : '🤍' }}
-        </button>
-        <!-- <button @click="removeReview(index)" class="btn btn--delete">Удалить</button> -->
-        <button @click="$emit('remove-review')" class="btn btn--delete">Удалить</button>
+  <div class="review">
+    <div class="review__header">
+      <p class="review__author">{{ author }}</p>
+      <div class="review__rating">
+        <span v-for="n in 5" :key="`star-${n}`" class="star">
+          {{ n <= rating ? '★' : '☆' }}
+        </span>
       </div>
     </div>
-  </li>
+    <p class="review__text">"{{ text }}"</p>
+    <div class="review__actions">
+      <!-- <button @click="toggleLike(review)" class="btn btn--like"> -->
+      <button @click="$emit('toggle-like')" class="btn btn--like">
+        {{ liked ? '❤️' : '🤍' }}
+      </button>
+      <!-- <button @click="removeReview(index)" class="btn btn--delete">Удалить</button> -->
+      <button @click="$emit('remove-review')" class="btn btn--delete">Удалить</button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-.review-tiles__item {
-  flex-basis: calc(100% / 3 - 5rem);
-  border: 1px solid #bebcbd;
-  border-radius: 10px;
-  padding: 1rem 2rem;
-}
-
-.reviews-tiles__item--empty {
-  text-align: center;
-  padding: 1rem;
-  font-style: italic;
-  color: #777;
-}
-@media screen and (max-width: 850px) {
-  .review-tiles__item {
-    flex-basis: calc(100% - 2rem);
-  }
-}
-
 .review__header {
   display: flex;
   justify-content: space-between;

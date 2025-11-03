@@ -49,13 +49,13 @@ const setFilter = (value) => {
     <h1 class="reviews__title">Отзывы</h1>
 
     <!-- Панель фильтров -->
-    <FilterPanel :filterOptions="filterOptions" @set-filter="setFilter" />
+    <FilterPanel :filter-options="filterOptions" @set-filter="setFilter" />
 
     <!-- Список отзывов -->
     <ReviewList
-      :filteredReviews="filteredReviews"
-      @remove-review="removeReview"
+      :reviews="filteredReviews"
       @toggle-like="toggleLike"
+      @remove-review="removeReview"
     />
   </div>
 </template>
@@ -72,6 +72,4 @@ const setFilter = (value) => {
   text-align: center;
   margin-bottom: 1rem;
 }
-
-
 </style>
